@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Little Devils</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+<noscript>Your browser does not support JavaScript!</noscript>
+    
+<nav class="navbar navbar-expand-md navbar-light bg-faded" style="background-color: cornsilk">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link active" href="calculator.html">Coin calculator</a>
+        </div>
+    </div>
+</nav>
+    
+<div class="jumbotron jumbotron-fluid" style="margin-bottom:0">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">&nbsp;</div>
+      <div class="col-sm-6 text-center" style="padding-right: 80px;">
+        <h1>Forge point calculator</h1>
+        <p>This a simple calculator to determine the number of coins required to buy a certain number of fps.  Enter
+      the current coin cost to buy 1 fp.  Then enter the number to fps you want to buy and click calculate.</p>
+      </div>
+      <div class="col-sm-3">&nbsp;</div>
+    </div>
+      
+    <div class="row">
+       <div class="col-sm-3">&nbsp;</div>
+       <form>
+        <div class="form-group row">
+           <label for="coins" class="col-sm-5 col-form-label">Current fp cost:</label>
+             <div class="col-sm-6">
+               <input type="text" class="form-control" id="coins" placeholder="coins">
+             </div>
+        </div>
+        <div class="form-group row">
+          <label for="fps" class="col-sm-5 col-form-label">Number of fps:</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="fps" placeholder="fps">
+          </div>
+        </div>
+        <div class="form-group row">
+            <input type="button" class="col-sm-5 btn btn-primary" id="calcButton" value="Calculate"/>
+        </div>
+        <div class="form-group row">
+          <label for="fps" class="col-sm-5 col-form-label">Total coin cost:</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control-plaintext" id="total" value="">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="fps" class="col-sm-5 col-form-label">Next coin cost:</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control-plaintext" id="nextfps" value="">
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function coinCalc( coins, fps){
+    var total = 0;
+    var fpCoinCost = coins;
+  
+    for( var fpCount = 0; fpCount < fps; fpCount++ ){
+      total += fpCoinCost;
+      fpCoinCost = coins + (fpCount+1) * 50;
+    }
+    
+    return {total:total, fpCoinCost: fpCoinCost};
+  }
+    
+  $('#calcButton').on('click', function (e) {
+      var coinsElement = document.getElementById('coins');
+      var coins = parseInt(coinsElement.value);
+      var fpsElement = document.getElementById('fps')
+      var fps = parseInt(fpsElement.value);   
+      var result = coinCalc( coins, fps); 
+      
+      document.getElementById('total').value = result.total;
+      document.getElementById('nextfps').value = result.fpCoinCost;
+    });  
+  
+</script>
+</body>
+</html>
